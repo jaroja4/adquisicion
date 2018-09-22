@@ -1,0 +1,45 @@
+.menu {
+    border-right: 5px solid rgb(92, 92, 92);
+    border-bottom:5px solid rgb(92, 92, 92);
+    padding-right: 0% !important;
+    /* padding: 0;
+    margin: 0; */
+}
+
+.menu p {
+    width: 100%; 
+    color: white;
+    margin-left: 0%;
+    margin-right: 0%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.menu p span {
+    color: rgb(92, 92, 92);
+    float: right;
+    margin-right: 5px;
+}
+
+.menu p span :hover {
+    color: rgb(221, 181, 1);
+}
+
+table {
+    font-size: medium;
+}
+
+table th{
+    font-size: medium;
+    font-weight: bold;
+}
+
+.map{
+    padding-left: 0% !important;
+}
+
+.separador{
+    border-bottom:5px solid rgb(92, 92, 92);
+}
