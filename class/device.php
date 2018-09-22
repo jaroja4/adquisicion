@@ -1,11 +1,12 @@
 <?php
 date_default_timezone_set('America/Costa_Rica');
 
-if(isset($_GET["action"])){
-    $opt= $_GET["action"];
-    unset($_GET["action"]);
-    // Classes
-    require_once("Conexion.php");
+// Classes
+require_once("Conexion.php");
+
+if(isset($_POST["action"])){
+    $opt= $_POST["action"];
+    unset($_POST["action"]);
     // Session
     if (!isset($_SESSION))
         session_start();  
@@ -31,6 +32,37 @@ if(isset($_GET["action"])){
             echo json_encode($device->Delete());
             break;   
     }    
+}else{
+
+    // if(isset($_GET["action"])){
+    //     $opt= $_GET["action"];
+    //     unset($_GET["action"]);
+    //     // Session
+    //     if (!isset($_SESSION))
+    //         session_start();  
+    //     // Instance
+    //     $device= new Device();
+    //     switch($opt){
+    //         case "ReadAll":
+    //             echo json_encode($device->ReadAll());
+    //             break;
+    //         case "ReadbyID":
+    //             echo json_encode($device->ReadbyID());
+    //             break;
+    //         case "Create":
+    //             echo json_encode($device->Create());
+    //             break;
+    //         case "Update":
+    //             $device->Update();
+    //             break;
+    //         case "AddData":
+    //             $device->AddData();
+    //             break;
+    //         case "Delete":
+    //             echo json_encode($device->Delete());
+    //             break;   
+    //     }    
+    // }
 }
 
 class Device{
@@ -80,14 +112,34 @@ class Device{
 
     function ReadAll(){
         try {
-            $sql='SELECT * FROM (
-                Select dis.nombre, var.tipo, var.valor, var.fecha, var.longitud, var.latitud
-                FROM dispositivos dis
-                INNER JOIN variables var ON dis.id = var.idDispositivo
-                ORDER BY var.fecha DESC
-            ) AS tmp_table GROUP BY nombre;';
+            $sql='SELECT id FROM dispositivos';
             $data= DATA::Ejecutar($sql);
-            return $data;
+            if($data){
+                $lista = [];
+                foreach ($data as $key => $value){
+                    $sql="SELECT dis.nombre, var.tipo, var.valor, var.fecha, var.longitud, var.latitud
+                    FROM dispositivos dis
+                    INNER JOIN variables var ON dis.id = var.idDispositivo
+                    WHERE idDispositivo = :idDispositivo
+                    ORDER BY fecha DESC
+                    LIMIT 1";              
+                    $param= array(':idDispositivo'=>$value["id"]);
+                    $data = DATA::Ejecutar($sql,$param, false);
+                    if($data){
+                        foreach ($data as $key => $value){
+                            $dispositivo = new Device();
+                            $dispositivo->nombre = $value['nombre'];
+                            $dispositivo->tipo = $value['tipo'];
+                            $dispositivo->valor = $value['valor'];
+                            $dispositivo->fecha = $value['fecha'];
+                            $dispositivo->latitud = $value['latitud'];
+                            $dispositivo->longitud = $value['longitud'];
+                            array_push ($lista, $dispositivo);
+                        }
+                    }
+                }                
+                return $lista;
+            }
         }     
         catch(Exception $e) {
             header('HTTP/1.0 400 Bad error');
@@ -228,4 +280,3 @@ class Device{
 }
 
 ?>
-<!-- http://localhost:8080/gpsuh/class/webservice.php?action=AddData&idDispositivo=af76a1ba-be2b-11e8-b101-c85b76da12f5&tipo=tmp&valor=87 -->
