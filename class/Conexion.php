@@ -4,13 +4,13 @@ class DATA {
     
 	public static $conn;    
     private static $config="";
-    //private static $connSql;
-
+    
 	private static function ConfiguracionIni(){
         require_once('Globals.php');
         if (file_exists('../config.ini')) {
             self::$config = parse_ini_file('../config.ini',true); 
         }         
+        else throw new Exception('Acceso denegado al Archivo de configuración.',-1);
     }  
 
     private static function Conectar(){
@@ -21,18 +21,10 @@ class DATA {
                 return self::$conn;
             }
         } catch (PDOException $e) {
-            header('HTTP/1.0 400 Bad error');
-            die(json_encode(array(
-                'code' => $e->getCode() ,
-                'msg' => 'Error de Conexión'))
-            );
+            throw new Exception($e->getMessage(),$e->getCode());
         }
         catch(Exception $e){
-            header('HTTP/1.0 400 Bad error');
-            die(json_encode(array(
-                'code' => $e->getCode() ,
-                'msg' => 'Error de Conexión'))
-            );
+            throw new Exception($e->getMessage(),$e->getCode());
         }
     }
     
@@ -50,16 +42,14 @@ class DATA {
                     return  $st->fetchAll();
                 else return $st;    
             } else {
-                self::$conn->rollback();
                 throw new Exception('Error al ejecutar.',00);
             }            
         } catch (Exception $e) {
-            self::$conn->rollback(); 
-            header('HTTP/1.0 400 Bad error');
-            die(json_encode(array(
-                'code' => $e->getCode() ,
-                'msg' => $e->getMessage()))
-            );
+            if(isset(self::$conn))
+                self::$conn->rollback(); 
+            if(isset($st))
+                throw new Exception($st->errorInfo()[2],$st->errorInfo()[1]);
+            else throw new Exception($e->getMessage(),$e->getCode());
         }
     }   
 
