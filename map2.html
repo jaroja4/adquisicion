@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+    <!-- check User session -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/sweetalert2.min.js"></script>
+    <script src="assets/js/Session.js"></script>
+    <script>
+        Session.Check();
+    </script>
+    <!-- /End check -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>XALBS | MAP</title>
@@ -12,7 +20,7 @@
     <link href="assets/css/simple-sidebar.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="assets/css/map.css" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="assets/css/KD_Header.css">
 
 </head>
@@ -23,14 +31,16 @@
 
         <!-- Sidebar -->
         <div class="row">
-        <div class="col-lg-12" style="background-color: rgb(255, 0, 21)">
+            <div class="col-lg-12" style="background-color: rgb(255, 0, 21)">
                 <nav class="navbar navbar-default custom-header">
                     <div class="container-fluid">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">
-                                <span style="margin-left:27px;font-family:'News Cycle', sans-serif;color:rgb(253,250,254);">XLABS Integration S.A.</span>
+                                <span style="margin-left:27px;font-family:'News Cycle', sans-serif;color:rgb(253,250,254);">XLABS
+                                    Integration S.A.</span>
                                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
-                                <img class="img-responsive" src="assets/img/user.png" width="auto" height="auto" style="width:43px;margin:-26px;margin-right:-27px;margin-top:-32px;margin-left:-33px;margin-bottom:-31px;"> </a>
+                                <img class="img-responsive" src="assets/img/user.png" width="auto" height="auto" style="width:43px;margin:-26px;margin-right:-27px;margin-top:-32px;margin-left:-33px;margin-bottom:-31px;">
+                            </a>
                             <!-- <button
                                                 class="navbar-toggle collapsed hidden-xs" data-toggle="collapse" data-target="#navbar-collapse"></button> -->
                         </div>
@@ -42,14 +52,14 @@
             </div>
         </div>
         <div id="sidebar-wrapper">
-            
+
         </div>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            
-                <div id="googleMap" style="width:100%;height:-webkit-fill-available; margin: 0%; padding: 0%;"></div>
+
+            <div id="googleMap" style="width:100%;height:-webkit-fill-available; margin: 0%; padding: 0%;"></div>
 
         </div>
         <!-- /#page-content-wrapper -->
