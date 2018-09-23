@@ -18,29 +18,30 @@ USE `xlabs`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `dispositivos_x_clientes`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `dispositivos_x_clientes`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dispositivos_x_clientes` (
-  `idDispositivo` char(36) NOT NULL,
-  `idCliente` char(36) NOT NULL,
-  KEY `idDispositivo` (`idDispositivo`),
-  KEY `idCliente` (`idCliente`),
-  CONSTRAINT `dispositivos_x_clientes_ibfk_1` FOREIGN KEY (`idDispositivo`) REFERENCES `dispositivos` (`id`),
-  CONSTRAINT `dispositivos_x_clientes_ibfk_2` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`id`)
+CREATE TABLE `user` (
+  `id` char(36) NOT NULL COMMENT 'id, name, password, tel, active',
+  `name` varchar(45) DEFAULT NULL COMMENT 'id, name, password, tel, active',
+  `password` varchar(45) DEFAULT NULL,
+  `tel` varchar(45) DEFAULT NULL,
+  `active` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dispositivos_x_clientes`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `dispositivos_x_clientes` WRITE;
-/*!40000 ALTER TABLE `dispositivos_x_clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dispositivos_x_clientes` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('3ca0f04d-be82-11e8-a309-54ee75873a76','admin','admin','0000000',1);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

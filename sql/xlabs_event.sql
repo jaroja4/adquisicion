@@ -18,29 +18,29 @@ USE `xlabs`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `dispositivos_x_clientes`
+-- Table structure for table `event`
 --
 
-DROP TABLE IF EXISTS `dispositivos_x_clientes`;
+DROP TABLE IF EXISTS `event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dispositivos_x_clientes` (
-  `idDispositivo` char(36) NOT NULL,
-  `idCliente` char(36) NOT NULL,
-  KEY `idDispositivo` (`idDispositivo`),
-  KEY `idCliente` (`idCliente`),
-  CONSTRAINT `dispositivos_x_clientes_ibfk_1` FOREIGN KEY (`idDispositivo`) REFERENCES `dispositivos` (`id`),
-  CONSTRAINT `dispositivos_x_clientes_ibfk_2` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`id`)
+CREATE TABLE `event` (
+  `id` char(36) NOT NULL,
+  `menuL1` varchar(45) DEFAULT NULL,
+  `menuL2` varchar(45) DEFAULT NULL,
+  `url` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dispositivos_x_clientes`
+-- Dumping data for table `event`
 --
 
-LOCK TABLES `dispositivos_x_clientes` WRITE;
-/*!40000 ALTER TABLE `dispositivos_x_clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dispositivos_x_clientes` ENABLE KEYS */;
+LOCK TABLES `event` WRITE;
+/*!40000 ALTER TABLE `event` DISABLE KEYS */;
+INSERT INTO `event` VALUES ('484081bc-bea8-11e8-b101-c85b76da12f5','map','map','map.html'),('a6622f0c-be83-11e8-a309-54ee75873a76','Inicio','Inicio','index.html');
+/*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

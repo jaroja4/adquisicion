@@ -147,7 +147,7 @@ class Usuario{
     function Login(){
         try {
             //Check activo & password.
-            $sql= 'SELECT DISTINCT u.id, u.name, u.password, active, e.menuL1 as nombreUrl, e.url, e.icon, er.idEvento, e.menuL2
+            $sql= 'SELECT DISTINCT u.id, u.name, u.password, active, e.menuL1 as nombreUrl, e.url, er.idEvento, e.menuL2
             FROM user u inner join rolesXUsuario ru on ru.idUsuario = u.id
                 inner join eventosXRol er on er.idRol = ru.idRol
                 inner join Event e on e.id = er.idEvento
@@ -179,7 +179,6 @@ class Usuario{
                                 $evento->url= $value['url'];
                                 $evento->menuPadre= $value['menuL2'];
                                 //$evento->subMenuPadre= $value['subMenuPadre'];
-                                $evento->icono= $value['icon'];
                                 $this->eventos = array($evento);
                             }
                             else {

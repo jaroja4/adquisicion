@@ -6,39 +6,52 @@ class Device {
         this.mapProp = mapProp || null;
     };
 
-    loadDevice() {
+    loadMyDevices() {
         $.ajax({
             type: "POST",
-            url: "class/Device.php",
+            url: "class/device.php",
             data: {
                 action: "ReadAll"
             }
         })
-        .done(function (e) {
-            DrawDevice(e);
-        })
-        .fail(function (e) {
-            showError(e);
-        });
+            .done(function (e) {
+                mymap.drawMarcadores(e);
+                mymap.drawPanel(e);
+            })
+            .fail(function (e) {
+                // alert("Error", "No se pudo cargar!");
+            });
     };
+
+    loadStatus(e) {
+        // var e = JSON.parse(e);
+        $.ajax({
+            type: "POST",
+            url: "class/device.php",
+            data: {
+                action: "LoadStatus",
+                obj: JSON.stringify(e)
+            }
+        })
+            .done(function (e) {
+                mymap.drawEstado(e);
+            })
+            .fail(function (e) {
+                alert("Error", "No se pudo cargar!");
+            });
+    }
 }
 
 let device = new Device();
 
 $(document).ready(function () {
-    device.loadDevice();
-    $('#dispositivos').DataTable();
-    $('#estados').DataTable();
+    device.loadMyDevices();
+    // $('#dispositivos').DataTable();
+    // $('#estados').DataTable();
 });
 
-function tiempoReal()
-    {
-        alert("ok");
-        // var tabla = $.ajax({
-        //         url:'tablaConsulta.php',
-        //         dataType:'text',
-        //         async:false
-        // }).responseText;
-    document.getElementById("miTabla").innerHTML = tabla;
-    }
-    setInterval(tiempoReal, 3000);
+function tiempoReal() {
+    device.loadMyDevices();
+}
+setInterval(tiempoReal, 300000);
+

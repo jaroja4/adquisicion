@@ -30,44 +30,15 @@ if(isset($_POST["action"])){
             break;
         case "Delete":
             echo json_encode($device->Delete());
+            break;
+        case "LoadStatus":
+            echo json_encode($device->LoadStatus());
             break;   
     }    
-}else{
-
-    // if(isset($_GET["action"])){
-    //     $opt= $_GET["action"];
-    //     unset($_GET["action"]);
-    //     // Session
-    //     if (!isset($_SESSION))
-    //         session_start();  
-    //     // Instance
-    //     $device= new Device();
-    //     switch($opt){
-    //         case "ReadAll":
-    //             echo json_encode($device->ReadAll());
-    //             break;
-    //         case "ReadbyID":
-    //             echo json_encode($device->ReadbyID());
-    //             break;
-    //         case "Create":
-    //             echo json_encode($device->Create());
-    //             break;
-    //         case "Update":
-    //             $device->Update();
-    //             break;
-    //         case "AddData":
-    //             $device->AddData();
-    //             break;
-    //         case "Delete":
-    //             echo json_encode($device->Delete());
-    //             break;   
-    //     }    
-    // }
 }
 
 class Device{
     public $id="";
-    public $idDispositivo="";
     public $valor="";
     public $nombre="";
     public $imei= "";
@@ -78,16 +49,20 @@ class Device{
     //
     function __construct(){
         // identificador único
-        $this->id= $_GET["id"] ?? '';
+        $this->id= $_POST["id"] ?? '';
 
-        $this->idDispositivo= $_GET["idDispositivo"] ?? '6d9729f6-be34-11e8-b101-c85b76da12f5';
-        $this->valor= $_GET["valor"] ?? '';
-        $this->nombre= $_GET["nombre"] ?? '';
-        $this->imei= $_GET["imei"] ?? '';
-        $this->numSIM= $_GET["numSIM"] ?? '';
-        $this->tipo= $_GET["tipo"] ?? '';
-        $this->latitud= $_GET["latitud"] ?? '';
-        $this->longitud= $_GET["longitud"] ?? '';
+        
+        if(isset($_POST["obj"])){
+            $obj= json_decode($_POST["obj"],true);
+            $this->id= $obj["id"] ?? '';
+            $this->valor= $obj["valor"] ?? '';
+            $this->nombre= $obj["nombre"] ?? '';
+            $this->imei= $obj["imei"] ?? '';
+            $this->numSIM= $obj["numSIM"] ?? '';
+            $this->tipo= $obj["tipo"] ?? '';
+            $this->latitud= $obj["latitud"] ?? '';
+            $this->longitud= $obj["longitud"] ?? '';
+        }
     }
 
     function AddData(){
@@ -109,31 +84,71 @@ class Device{
         }
     }
 
+    
+    function LoadStatus(){
+        try {
+            $sql='SELECT DISTINCT tipo
+            FROM variables
+            WHERE idDispositivo = :idDispositivo';
+            $param= array(':idDispositivo'=>$this->id);
+            $tipos = DATA::Ejecutar($sql,$param, false);
+            if($tipos){
+                $lista = [];
+                foreach ($tipos as $keyTipo => $valueTipo){
+                    $sql="SELECT tipo, valor, fecha
+                    FROM variables
+                    WHERE idDispositivo = :idDispositivo and
+                    tipo = :tipo
+                    ORDER BY fecha DESC
+                    LIMIT 1";              
+                    $param= array(':idDispositivo'=>$this->id, ':tipo'=>$valueTipo["tipo"]);
+                    $valores = DATA::Ejecutar($sql,$param, false);
+                    if($valores){
+                        foreach ($valores as $keyValores => $valueValores){
+                            $dispositivo = new Device();
+                            $dispositivo->tipo = $valueValores['tipo'];
+                            $dispositivo->valor = $valueValores['valor'];
+                            array_push ($lista, $dispositivo);
+                        }
+                    }
+                }
+            }                
+            return $lista;
+        }     
+        catch(Exception $e) {
+            header('HTTP/1.0 400 Bad error');
+            die(json_encode(array(
+                'code' => $e->getCode() ,
+                'msg' => 'Error al cargar la lista'))
+            );
+        }
+    }
 
     function ReadAll(){
         try {
             $sql='SELECT id FROM dispositivos';
-            $data= DATA::Ejecutar($sql);
-            if($data){
+            $dispositivos= DATA::Ejecutar($sql);
+            if($dispositivos){
                 $lista = [];
-                foreach ($data as $key => $value){
+                foreach ($dispositivos as $keyDevice => $valueDevice){
                     $sql="SELECT dis.nombre, var.tipo, var.valor, var.fecha, var.longitud, var.latitud
                     FROM dispositivos dis
                     INNER JOIN variables var ON dis.id = var.idDispositivo
                     WHERE idDispositivo = :idDispositivo
                     ORDER BY fecha DESC
                     LIMIT 1";              
-                    $param= array(':idDispositivo'=>$value["id"]);
-                    $data = DATA::Ejecutar($sql,$param, false);
-                    if($data){
-                        foreach ($data as $key => $value){
+                    $param= array(':idDispositivo'=>$valueDevice["id"]);
+                    $detalleDispositivo = DATA::Ejecutar($sql,$param, false);
+                    if($detalleDispositivo){
+                        foreach ($detalleDispositivo as $keyDetail => $valueDetail){
                             $dispositivo = new Device();
-                            $dispositivo->nombre = $value['nombre'];
-                            $dispositivo->tipo = $value['tipo'];
-                            $dispositivo->valor = $value['valor'];
-                            $dispositivo->fecha = $value['fecha'];
-                            $dispositivo->latitud = $value['latitud'];
-                            $dispositivo->longitud = $value['longitud'];
+                            $dispositivo->id = $valueDevice['id'];
+                            $dispositivo->nombre = $valueDetail['nombre'];
+                            $dispositivo->tipo = $valueDetail['tipo'];
+                            $dispositivo->valor = $valueDetail['valor'];
+                            $dispositivo->fecha = $valueDetail['fecha'];
+                            $dispositivo->latitud = $valueDetail['latitud'];
+                            $dispositivo->longitud = $valueDetail['longitud'];
                             array_push ($lista, $dispositivo);
                         }
                     }
