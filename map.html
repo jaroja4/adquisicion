@@ -27,9 +27,8 @@
     <nav class="navbar navbar-default custom-header">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <span style="margin-left:27px;font-family:'News Cycle', sans-serif;color:rgb(253,250,254);">XLABS
-                        Integration S.A.</span>
+                <a class="navbar-brand" href="index.html">
+                    <span style="margin-left:27px;font-family:'News Cycle', sans-serif;color:rgb(253,250,254);">XLABS Integration S.A.</span>
                     <img class="img-responsive" src="assets/img/user.png" width="auto" height="auto" style="width:43px;margin:-26px;margin-right:-27px;margin-top:-32px;margin-left:-33px;margin-bottom:-31px;">
                 </a>
                 <!-- <button
@@ -47,13 +46,13 @@
                 <div>
                     <p>Dispositivos
                         <span>
-                            <button>
+                            <button id="addDeviceModal">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
-                            <button>
+                            <button id="editDeviceModal">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </button>
-                            <button>
+                            <button id="delDeviceModal">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                             </button>
                         </span>
@@ -73,6 +72,24 @@
             </div>
         </div>
     </div>
+
+    <!-- modals -->
+    <!-- Large modal -->
+    <div id="modalFac" class="modal fade device-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-factura">
+                <div class="modal-header">
+
+                </div>
+                <div class="modal-body">
+
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modals -->
+    <!-- Large modal -->
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQSdtfk19XRlT-BGgPV-3RdBsiuwE5m3U&callback=initialize"></script>
 

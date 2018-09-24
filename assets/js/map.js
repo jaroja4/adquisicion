@@ -141,7 +141,3 @@ $(document).ready(function () {
     // $('#dispositivos').DataTable();
     // $('#estados').DataTable();
 });
-
-$('#dispositivos').on('click', 'tr', function () {
-    device.loadStatus(mymap.tb_device.row(this).data());
-});
