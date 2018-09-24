@@ -11,7 +11,7 @@ if(isset($_GET["action"])){
     $webService= new WebService();
     switch($opt){
         case "AddData":
-            $device->AddData();
+        echo ($webService->AddData());
             break; 
     }    
 }
@@ -48,6 +48,11 @@ class WebService{
             $param= array(':idDispositivo'=>$this->idDispositivo, ':tipo'=>$this->tipo,
              ':valor'=>$this->valor, ':latitud'=>$this->latitud, ':longitud'=>$this->longitud);
             $data = DATA::Ejecutar($sql,$param, false);
+            if($data){
+                return "Dato OK";
+            }else{
+                return "Dato no Almacenado";
+            }
         }     
         catch(Exception $e) {
             error_log("error: ". $e->getMessage());

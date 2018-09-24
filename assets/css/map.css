@@ -43,3 +43,7 @@ table th{
 .separador{
     border-bottom:5px solid rgb(92, 92, 92);
 }
+
+deviceinput{
+    margin-bottom: 2% !important;
+}

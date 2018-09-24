@@ -178,16 +178,12 @@ class Usuario{
                                 $evento->nombre= $value['nombreUrl'];
                                 $evento->url= $value['url'];
                                 $evento->menuPadre= $value['menuL2'];
-                                //$evento->subMenuPadre= $value['subMenuPadre'];
                                 $this->eventos = array($evento);
                             }
                             else {
                                 $evento->id= $value['idEvento'];
                                 $evento->nombre= $value['nombreUrl'];
                                 $evento->url= $value['url'];
-                                $evento->menuPadre= $value['menuPadre'];
-                                $evento->subMenuPadre= $value['subMenuPadre'];
-                                $evento->icono= $value['icono'];
                                 array_push ($this->eventos, $evento);
                             }                    
                         }
