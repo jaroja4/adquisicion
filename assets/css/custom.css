@@ -146,25 +146,25 @@ html , body{
    .left_col {
        background: #2A3F54
    }
-   .nav-sm .container.body .col-md-3.left_col {
+   .nav-sm .container_body.body .col-md-3.left_col {
        min-height: 100%;
        width: 70px;
        padding: 0;
        z-index: 9999;
        position: absolute
    }
-   .nav-sm .container.body .col-md-3.left_col.menu_fixed {
+   .nav-sm .container_body.body .col-md-3.left_col.menu_fixed {
        position: fixed;
        height: 100%
    }
-   .nav-sm .container.body .col-md-3.left_col .mCSB_container,
-   .nav-sm .container.body .col-md-3.left_col .mCustomScrollBox {
+   .nav-sm .container_body.body .col-md-3.left_col .mCSB_container_body,
+   .nav-sm .container_body.body .col-md-3.left_col .mCustomScrollBox {
        overflow: visible
    }
    .nav-sm .hidden-small {
        visibility: hidden
    }
-   .nav-sm .container.body .right_col {
+   .nav-sm .container_body.body .right_col {
        padding: 10px 20px;
        margin-left: 70px;
        z-index: 2
@@ -188,7 +188,7 @@ html , body{
        max-height: 66px;
        max-width: 180px;
    }
-   .nav-sm .main_container .top_nav {
+   .nav-sm .main_container_body .top_nav {
        display: block;
        margin-left: 70px;
        z-index: 2
@@ -337,7 +337,7 @@ html , body{
            position: static
        }
    }
-   .nav-md .container.body .col-md-3.left_col {
+   .nav-md .container_body.body .col-md-3.left_col {
        min-height: 100%;
        width: 230px;
        padding: 0;
@@ -346,14 +346,14 @@ html , body{
        display: flex;
        z-index: 1
    }
-   .nav-md .container.body .col-md-3.left_col.menu_fixed {
+   .nav-md .container_body.body .col-md-3.left_col.menu_fixed {
        height: 100%;
        position: fixed
    }
-   body .container.body .right_col {
+   body .container_body.body .right_col {
        background: #F7F7F7
    }
-   .nav-md .container.body .right_col {
+   .nav-md .container_body.body .right_col {
        padding: 10px 20px 0;
        margin-left: 230px
    }
@@ -365,15 +365,15 @@ html , body{
        height: 57px
    }
    @media (max-width: 991px) {
-       .nav-md .container.body .right_col,
-       .nav-md .container.body .top_nav {
+       .nav-md .container_body.body .right_col,
+       .nav-md .container_body.body .top_nav {
            width: 100%;
            margin: 0
        }
-       .nav-md .container.body .col-md-3.left_col {
+       .nav-md .container_body.body .col-md-3.left_col {
            display: none
        }
-       .nav-md .container.body .right_col {
+       .nav-md .container_body.body .right_col {
            width: 100%;
            padding-right: 0
        }
@@ -474,7 +474,7 @@ html , body{
        border: 1px solid #50C1CF !important;
        color: #fff
    }
-   .container {
+   .container_body {
        width: 100%;
        padding: 0
    }
@@ -498,7 +498,7 @@ html , body{
        font-weight: 400;
        line-height: 1.471
    }
-   .main_container .top_nav {
+   .main_container_body .top_nav {
        display: block;
        margin-left: 230px
    }
@@ -3063,10 +3063,10 @@ html , body{
        padding: 10px 0 2px;
        display: block
    }
-   .ui-ribbon-container {
+   .ui-ribbon-container_body {
        position: relative
    }
-   .ui-ribbon-container .ui-ribbon-wrapper {
+   .ui-ribbon-container_body .ui-ribbon-wrapper {
        position: absolute;
        overflow: hidden;
        width: 85px;
@@ -3074,10 +3074,10 @@ html , body{
        top: -3px;
        right: -3px
    }
-   .ui-ribbon-container.ui-ribbon-primary .ui-ribbon {
+   .ui-ribbon-container_body.ui-ribbon-primary .ui-ribbon {
        background-color: #5b90bf
    }
-   .ui-ribbon-container .ui-ribbon {
+   .ui-ribbon-container_body .ui-ribbon {
        position: relative;
        display: block;
        text-align: center;
@@ -3093,19 +3093,19 @@ html , body{
        background-color: #555;
        box-shadow: 0 0 3px rgba(0, 0, 0, 0.3)
    }
-   .ui-ribbon-container.ui-ribbon-primary .ui-ribbon:after,
-   .ui-ribbon-container.ui-ribbon-primary .ui-ribbon:before {
+   .ui-ribbon-container_body.ui-ribbon-primary .ui-ribbon:after,
+   .ui-ribbon-container_body.ui-ribbon-primary .ui-ribbon:before {
        border-top: 2px solid #5b90bf
    }
-   .ui-ribbon-container .ui-ribbon:before {
+   .ui-ribbon-container_body .ui-ribbon:before {
        left: 0;
        bottom: -1px
    }
-   .ui-ribbon-container .ui-ribbon:before {
+   .ui-ribbon-container_body .ui-ribbon:before {
        right: 0
    }
-   .ui-ribbon-container .ui-ribbon:after,
-   .ui-ribbon-container .ui-ribbon:before {
+   .ui-ribbon-container_body .ui-ribbon:after,
+   .ui-ribbon-container_body .ui-ribbon:before {
        position: absolute;
        content: " ";
        line-height: 0;
@@ -3661,31 +3661,31 @@ html , body{
    .dropdown-menu a {
        cursor: pointer
    }
-   .select2-container--default .select2-selection--single,
-   .select2-container--default .select2-selection--multiple {
+   .select2-container_body--default .select2-selection--single,
+   .select2-container_body--default .select2-selection--multiple {
        background-color: #fff;
        border: 1px solid #ccc;
        border-radius: 0;
        min-height: 38px
    }
-   .select2-container--default .select2-selection--single .select2-selection__rendered {
+   .select2-container_body--default .select2-selection--single .select2-selection__rendered {
        color: #73879C;
        padding-top: 5px
    }
-   .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+   .select2-container_body--default .select2-selection--multiple .select2-selection__rendered {
        padding-top: 3px
    }
-   .select2-container--default .select2-selection--single .select2-selection__arrow {
+   .select2-container_body--default .select2-selection--single .select2-selection__arrow {
        height: 36px
    }
-   .select2-container--default .select2-selection--multiple .select2-selection__choice,
-   .select2-container--default .select2-selection--multiple .select2-selection__clear {
+   .select2-container_body--default .select2-selection--multiple .select2-selection__choice,
+   .select2-container_body--default .select2-selection--multiple .select2-selection__clear {
        margin-top: 2px;
        border: none;
        border-radius: 0;
        padding: 3px 5px
    }
-   .select2-container--default.select2-container--focus .select2-selection--multiple {
+   .select2-container_body--default.select2-container_body--focus .select2-selection--multiple {
        border: 1px solid #ccc
    }
    .switchery {
@@ -3701,23 +3701,23 @@ html , body{
        margin: 0;
        padding: 0
    }
-   .cropper .img-container,
+   .cropper .img-container_body,
    .cropper .img-preview {
        background-color: #f7f7f7;
        width: 100%;
        text-align: center
    }
-   .cropper .img-container {
+   .cropper .img-container_body {
        min-height: 200px;
        max-height: 516px;
        margin-bottom: 20px
    }
    @media (min-width: 768px) {
-       .cropper .img-container {
+       .cropper .img-container_body {
            min-height: 516px
        }
    }
-   .cropper .img-container>img {
+   .cropper .img-container_body>img {
        max-width: 100%
    }
    .cropper .docs-preview {
@@ -3832,7 +3832,7 @@ html , body{
    .cropper .docs-cropped canvas {
        max-width: 100%
    }
-   .form_wizard .stepContainer {
+   .form_wizard .stepcontainer_body {
        display: block;
        position: relative;
        margin: 0;
@@ -3903,7 +3903,7 @@ html , body{
        width: 50%;
        left: auto
    }
-   .wizard_verticle .stepContainer {
+   .wizard_verticle .stepcontainer_body {
        width: 80%;
        float: left;
        padding: 0 10px
@@ -4088,7 +4088,7 @@ html , body{
        background-color: rgba(231, 76, 60, 0.88);
        border-color: rgba(231, 76, 60, 0.88)
    }
-   .ui-pnotify.dark .ui-pnotify-container {
+   .ui-pnotify.dark .ui-pnotify-container_body {
        color: #E9EDEF;
        background-color: rgba(52, 73, 94, 0.88);
        border-color: rgba(52, 73, 94, 0.88)
@@ -4244,7 +4244,7 @@ html , body{
    .daterangepicker.xdisplay { width:228px; }
    
    .dataTables_wrapper > .row{
-     overflow:auto !important; /*prevent datatables overflowing its container*/
+     overflow:auto !important; /*prevent datatables overflowing its container_body*/
    }
    
    /** bootstrap-datetimepicker **/

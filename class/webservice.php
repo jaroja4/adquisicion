@@ -14,14 +14,15 @@ if(isset($_GET["action"])){
         echo ($webService->AddData());
             break; 
     }    
-}
+}else{
+    echo ("Datos invalidos");
+} 
 
 class WebService{
     public $id="";
-    public $idDispositivo="";
+    public $imei="";
     public $valor="";
     public $nombre="";
-    public $imei= "";
     public $numSIM="";
     public $tipo="";
     public $latitud="";
@@ -30,10 +31,9 @@ class WebService{
     function __construct(){
         // identificador único
         $this->id= $_GET["id"] ?? '';
-        $this->idDispositivo= $_GET["idDispositivo"] ?? '';
+        $this->imei= $_GET["imei"] ?? '';
         $this->valor= $_GET["valor"] ?? '';
         $this->nombre= $_GET["nombre"] ?? '';
-        $this->imei= $_GET["imei"] ?? '';
         $this->numSIM= $_GET["numSIM"] ?? '';
         $this->tipo= $_GET["tipo"] ?? '';
         $this->latitud= $_GET["latitud"] ?? '';
@@ -42,10 +42,26 @@ class WebService{
 
     function AddData(){
         try {
-            $sql='INSERT INTO variables (id, idDispositivo, tipo, valor, latitud, longitud) 
-            VALUES (UUID(), :idDispositivo, :tipo, :valor, :latitud, :longitud);'; 
+            if(strlen($this->latitud) < 2 || strlen($this->longitud) < 2){
+                $sql='SELECT latitud, longitud FROM variables
+                WHERE imei = :imei ORDER BY FECHA DESC LIMIT 1;'; 
        
-            $param= array(':idDispositivo'=>$this->idDispositivo, ':tipo'=>$this->tipo,
+                $param= array(':imei'=>$this->imei);
+                $coordenadas = DATA::Ejecutar($sql,$param, false);
+                if($coordenadas){
+                    foreach ($coordenadas as $key => $value){
+                        $this->latitud = $value["latitud"];
+                        $this->longitud = $value["longitud"]; 
+                    }
+                }else{
+                    $this->latitud = "0.000000";
+                    $this->longitud = "0.000000";
+                }
+            } 
+            $sql='INSERT INTO variables (id, imei, tipo, valor, latitud, longitud) 
+            VALUES (UUID(), :imei, :tipo, :valor, :latitud, :longitud);'; 
+       
+            $param= array(':imei'=>$this->imei, ':tipo'=>$this->tipo,
              ':valor'=>$this->valor, ':latitud'=>$this->latitud, ':longitud'=>$this->longitud);
             $data = DATA::Ejecutar($sql,$param, false);
             if($data){

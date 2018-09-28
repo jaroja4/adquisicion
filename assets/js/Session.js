@@ -29,13 +29,13 @@ var Session=  {
                     Session.setUsername(data.username, data.nombre);      
                     Session.setMenu(data.eventos);    
                     Session.state=false;
-                    swal({
-                        //
-                        type: 'error',
-                        title: 'El usuario no tiene credenciales para ver esta página.',
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
+                    // swal({
+                    //     //
+                    //     type: 'error',
+                    //     title: 'El usuario no tiene credenciales para ver esta página.',
+                    //     showConfirmButton: false,
+                    //     timer: 3000
+                    // });
                     location.href= 'login.html';
                     break;
                 case 'invalido':

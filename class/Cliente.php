@@ -1,44 +1,37 @@
 <?php
-date_default_timezone_set('America/Costa_Rica');
-
-// Classes
-require_once("Conexion.php");
-
 if(isset($_POST["action"])){
     $opt= $_POST["action"];
-    unset($_POST["action"]);
+    unset($_POST['action']);
+    // Classes
+    require_once("Conexion.php");
+    require_once('Evento.php');
+    //require_once("encdes.php");
     // Session
     if (!isset($_SESSION))
-        session_start();  
+        session_start();
     // Instance
-    $device= new Device();
+    $cliente= new Cliente();
     switch($opt){
         case "ReadAll":
-            echo json_encode($device->ReadAll());
+            echo json_encode($cliente->ReadAll());
             break;
-        case "ReadbyID":
-            echo json_encode($device->ReadbyID());
+        case "Read":
+            echo json_encode($cliente->Read());
             break;
         case "Create":
-            echo json_encode($device->Create());
+            $cliente->Create();
             break;
         case "Update":
-            $device->Update();
-            break;
-        case "AddData":
-            $device->AddData();
+            $cliente->Update();
             break;
         case "Delete":
-            echo json_encode($device->Delete());
-            break;
-        case "LoadStatus":
-            $a =json_encode($device->LoadStatus());
-            echo json_encode($device->LoadStatus());
+            echo json_encode($cliente->Delete());
             break;   
-    }    
+    }
 }
 
-class Device{
+
+class Cliente{
     public $id="";
     public $valor="";
     public $nombre="";
@@ -127,34 +120,12 @@ class Device{
 
     function ReadAll(){
         try {
-            //$miVar = DATA::robot();
-            $sql='SELECT imei FROM device';
-            $dispositivos= DATA::Ejecutar($sql);
-            if($dispositivos){
-                $lista = [];
-                foreach ($dispositivos as $keyDevice => $valueDevice){
-                    $sql="SELECT de.nombre, var.fecha, var.latitud, var.longitud
-                    FROM device de
-                    INNER JOIN variables var ON de.imei = var.imei
-                    WHERE de.imei = :imei
-                    ORDER BY fecha DESC
-                    LIMIT 1;";              
-                    $param= array(':imei'=>$valueDevice["imei"]);
-                    $detalleDispositivo = DATA::Ejecutar($sql,$param, false);
-                    if($detalleDispositivo){
-                        foreach ($detalleDispositivo as $keyDetail => $valueDetail){
-                            $dispositivo = new Device();
-                            $dispositivo->id = $valueDevice['imei'];
-                            $dispositivo->nombre = $valueDetail['nombre'];
-                            $dispositivo->fecha = $valueDetail['fecha'];
-                            $dispositivo->latitud = $valueDetail['latitud'];
-                            $dispositivo->longitud = $valueDetail['longitud'];
-                            array_push ($lista, $dispositivo);
-                        }
-                    }
-                }                
-                return $lista;
-            }
+            $sql='SELECT id, name, tel, active, company
+            FROM user;';
+            $data= DATA::Ejecutar($sql);
+               
+            return $data;
+            
         }     
         catch(Exception $e) {
             header('HTTP/1.0 400 Bad error');
@@ -194,9 +165,7 @@ class Device{
 
     function Create(){
         try {
-
-            $sql="INSERT INTO dispositivos (id, nombre, imei, numSIM) VALUES (UUID(), :nombre, :imei, :numSIM);"; 
-       
+            $sql="INSERT INTO dispositivos (id, nombre, imei, numSIM) VALUES (UUID(), :nombre, :imei, :numSIM);";       
             $param= array(':uuid'=>$this->id, ':idBodega'=>$_SESSION["userSession"]->idBodega, ':local'=>$this->local, ':terminal'=>$this->terminal, 
                     ':idCondicionVenta'=>$this->idCondicionVenta, ':idSituacionComprobante'=>$this->idSituacionComprobante, ':idEstadoComprobante'=>$this->idEstadoComprobante, 
                     ':idMedioPago'=>$this->idMedioPago, ':fechaEmision'=>$this->fechaEmision, ':totalVenta'=>$this->totalVenta, ':totalDescuentos'=>$this->totalDescuentos, 

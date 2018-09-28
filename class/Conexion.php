@@ -98,6 +98,17 @@ class DATA {
     //         header('Location: ../Error.php');
     //         exit;
     //     }
-    // }
+    
+    //sleep for 5 seconds
+    public static function robot(){
+        $ch = curl_init("http://104.131.5.198/getdata/webservice.php?action=AddData&imei=865067024423025&tipo=Derrame&valor=NO&latitud=9.930865&longitud=-84.055951"); // such as http://example.com/example.xml
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        // $response = http_get("http://104.131.5.198/getdata/webservice.php?action=AddData&imei=865067024423025&tipo=Derrame&valor=NO&latitud=9.930865&longitud=-84.055951");
+        sleep(5);
+    }
+
 }
 ?>
