@@ -91,6 +91,7 @@ class Rol {
             $('select[name=selValue]').val(1);
             $('.selectpicker').selectpicker('refresh');
             $('.selectpicker').selectpicker('val', ['b7ebe888-be81-11e8-a309-54ee75873a76']);
+            $('select').addClass('selectwidthauto');
 
     };
 
@@ -146,7 +147,7 @@ class Rol {
                 {
                     title: "Roles",
                     data: null,                
-                    "defaultContent": '<select name="selValue" class="selectpicker" multiple data-live-search="true"></select>'
+                    "defaultContent": '<select name="selValue" class="selectpicker input-small" multiple data-live-search="true"></select>'
 
                 }
             ]
