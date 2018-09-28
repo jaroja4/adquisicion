@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="assets/css/Team.css">
   <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
   <link rel="stylesheet" href="assets/css/clientes.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-select.css">
   <!-- Custom TablePRD -->
   <link href="assets/jquery.dataTables/css/jquery.dataTables.min.css" rel="stylesheet">
   <link href="assets/css/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -61,45 +62,25 @@
       <div class="x_content">
         <div class="row">
           <center>
-            <h3 class="titleSize">Gestion de Usuarios</h3>
+            <h3 class="titleSize">Gestión de Roles</h3>
           </center>
         </div>
       </div>
       <div class="right_col" role="main">
-        <div class="">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title gray">
-                <h2 style="padding-top: 0px;">Usuarios</h2>
-                <h2 style="float: right; padding-top: 0px;">
-                  <i class="fa fa-plus" style="font-size:24px;color:rgb(59, 185, 1);"></i>
-                </h2>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <table id="tb_usuarios" class="table">
-                  <thead>
-                  </thead>
-                  <tbody id="lista_usuarios">
-
-                  </tbody>
-                </table>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="clearfix"></div>
-
-        </div>
 
         <div class="row">
           <div class="col-md-6 col-md-offset-3 col-sm-6 col-xs-6">
             <div class="x_panel">
-              <!--  CONTENIDO DE LA PAGINA -->
               <div class="x_content">
+                <div class="x_title gray">
+                  <h2 style="padding-top: 0px;">Gestión de Roles</h2>
+                  <h2 style="float: right; padding-top: 0px;">
+                    <i class="fa fa-plus" style="font-size:24px;color:rgb(59, 185, 1);"></i>
+                  </h2>
+                  <div class="clearfix"></div>
+                </div>
                 <div class="table-responsive">
-                  <table id="tb_dispositivos" class="table">
+                  <table id="tb_Roles" class="table jambo_table bulk_action">
                     <thead>
 
                     </thead>
@@ -113,8 +94,31 @@
           </div>
         </div>
 
+        <div class="">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+              <div class="x_title gray">
+                <h2 style="padding-top: 0px;">Usuario en Rol Seleccionado</h2>
+                <h2 style="float: right; padding-top: 0px;">
+                  <i class="fa fa-plus" style="font-size:24px;color:rgb(59, 185, 1);"></i>
+                </h2>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <table id="tb_usuarios" class="table">
+                  <thead>
+                  </thead>
+                  <tbody id="lista_usuarios">
 
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
+          <div class="clearfix"></div>
+
+        </div>
       </div>
     </div>
   </div>
@@ -158,15 +162,50 @@
   </div>
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/js/Cliente.js"></script>
+  <script src="assets/js/Roles.js"></script>
   <script src="assets/jquery.dataTables/js/jquery.dataTables.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap-select.js"></script>
 </body>
 
 </html>
 
 
-<script type="text/javascript">
 
 
 
+<script>
+  // function getScript(callback){
+  //   //create a script element and inject it into the page
+  //   var script = document.createElement('script');
+  //   script.src = 'assets/js/Roles.js';
+  //   document.getElementsByTagName('head')[0].appendChild(script);
+
+
+  //   var head  = document.getElementsByTagName('head')[0];
+  //   var link  = document.createElement('link');
+  //   link.rel  = 'stylesheet';
+  //   link.type = 'text/css';
+  //   link.href = 'assets/bootstrap/css/bootstrap-select.css';
+  //   link.media = 'all';
+  //   head.appendChild(link);
+
+
+  //   console.log("Primer Scritp Cargado"); //much better!
+  //   script.onload = callback;
+  // };
+
+  // getScript(function(){
+  //   var script = document.createElement('script');
+  //   script.src = 'assets/bootstrap/js/bootstrap-select.js';
+  //   document.getElementsByTagName('head')[0].appendChild(script);
+  //   console.log("Segundo Scritp Cargado"); //much better!
+  // });
+
+  $(document).ready(function () {
+    // $('selectpicker').selectpicker();
+    //     $(".selectpicker").selectpicker("refresh");
+    //     $('.mdb-select').material_select();
+
+    // $('select').selectpicker();
+  });
 </script>

@@ -11,86 +11,10 @@ class MyMap {
     loadmyMap() {
         this.mapProp = {
             center: new google.maps.LatLng(9.936516, -84.098354),
-            zoom: 14
+            zoom: 16
         };
 
         this.map = new google.maps.Map(document.getElementById("googleMap"), this.mapProp);
-    };
-
-
-
-    drawPanel(e) {
-        var device = JSON.parse(e);
-        this.tb_device = $('#dispositivos').DataTable({            
-            data: device,
-            destroy: true,
-            "paging": false,
-            "ordering": false,
-            "responsive": true,
-            "info": false,
-            "searching": false,
-            "scrollX": false,
-            "scrollY": false,
-            "scrollCollapse": true,
-            "language": {
-                "infoEmpty": "No Existen Elementos",
-                "emptyTable": "No Existen Elementos"
-            },
-            "order": [[1, "desc"]],
-            columns: [
-                {
-                    title: "id",
-                    data: "id",
-                    visible: false
-                },
-                {
-                    title: "Nombre",
-                    data: "nombre"
-                },
-                {
-                    title: "Fecha",
-                    data: "fecha",
-                    "searchable": false
-                }
-            ]
-        });
-        $("#dispositivos").css("font-size", 10);
-        $("#dispositivos thead th").css("color", "white");
-        this.tb_device.draw();
-    };
-    
-    drawEstado(e){
-        var dataEstados = JSON.parse(e);
-        this.tb_estados = $('#estados').DataTable({            
-            data: dataEstados,
-            destroy: true,
-            "paging": false,
-            "ordering": false,
-            "responsive": true,
-            "info": false,
-            "searching": false,
-            "scrollX": false,
-            "scrollY": false,
-            "scrollCollapse": true,
-            "language": {
-                "infoEmpty": "No Existen Estados",
-                "emptyTable": "No Existen Estados"
-            },
-            "order": [[0, "desc"]],
-            columns: [
-                {
-                    title: "Tipo",
-                    data: "tipo"
-                },
-                {
-                    title: "Valor",
-                    data: "valor"
-                }
-            ]
-        });
-        $("#dispositivos").css("font-size", 10);
-        $("#dispositivos thead th").css("color", "white");
-        this.tb_estados.draw();
     };
 
     drawMarcadores(e) {
@@ -137,7 +61,4 @@ let mymap = new MyMap();
 
 $(document).ready(function () {
     mymap.loadmyMap();
-    // mymap.loadMyDevices();
-    // $('#dispositivos').DataTable();
-    // $('#estados').DataTable();
 });

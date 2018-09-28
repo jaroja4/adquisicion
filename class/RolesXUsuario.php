@@ -1,68 +1,51 @@
 <?php
-date_default_timezone_set('America/Costa_Rica');
-
-// Classes
-require_once("Conexion.php");
-
 if(isset($_POST["action"])){
     $opt= $_POST["action"];
-    unset($_POST["action"]);
+    unset($_POST['action']);
+    // Classes
+    require_once("Conexion.php");
+    require_once('Evento.php');
+    //require_once("encdes.php");
     // Session
     if (!isset($_SESSION))
-        session_start();  
+        session_start();
     // Instance
-    $device= new Device();
+    $rolXUsuarioXUsuario= new RolXUsuario();
     switch($opt){
         case "ReadAll":
-            echo json_encode($device->ReadAll());
+            echo json_encode($rolXUsuario->ReadAll());
             break;
-        case "ReadbyID":
-            echo json_encode($device->ReadbyID());
+        case "Read":
+            echo json_encode($rolXUsuario->Read());
             break;
         case "Create":
-            echo json_encode($device->Create());
+            $rolXUsuario->Create();
             break;
         case "Update":
-            $device->Update();
-            break;
-        case "AddData":
-            $device->AddData();
+            $rolXUsuario->Update();
             break;
         case "Delete":
-            echo json_encode($device->Delete());
-            break;
-        case "LoadStatus":
-            $a =json_encode($device->LoadStatus());
-            echo json_encode($device->LoadStatus());
+            echo json_encode($rolXUsuario->Delete());
             break;   
-    }    
+    }
 }
 
-class Device{
-    public $id="";
-    public $valor="";
-    public $nombre="";
-    public $imei= "";
-    public $numSIM="";
-    public $tipo="";
-    public $latitud="";
-    public $longitud="";
+
+class RolXUsuario{
+    public $idRol="";
+    public $idUsuario="";
+    public $rolesXUsuario = [];
     //
     function __construct(){
         // identificador único
-        $this->id= $_POST["id"] ?? '';
+        $this->idRol= $_POST["idRol"] ?? '';
+        $this->idUsuario= $_POST["idUsuario"] ?? '';
 
         
         if(isset($_POST["obj"])){
             $obj= json_decode($_POST["obj"],true);
-            $this->id= $obj["id"] ?? '';
-            $this->valor= $obj["valor"] ?? '';
-            $this->nombre= $obj["nombre"] ?? '';
-            $this->imei= $obj["imei"] ?? '';
-            $this->numSIM= $obj["numSIM"] ?? '';
-            $this->tipo= $obj["tipo"] ?? '';
-            $this->latitud= $obj["latitud"] ?? '';
-            $this->longitud= $obj["longitud"] ?? '';
+            $this->idRol= $obj["idRol"] ?? '';
+            $this->idUsuario= $obj["idUsuario"] ?? '';
         }
     }
 
@@ -86,75 +69,15 @@ class Device{
     }
 
     
-    function LoadStatus(){
-        try {
-            $sql='SELECT DISTINCT tipo
-            FROM variables
-            WHERE imei = :imei';
-            $param= array(':imei'=>$this->id);
-            $tipos = DATA::Ejecutar($sql,$param, false);
-            if($tipos){
-                $lista = [];
-                foreach ($tipos as $keyTipo => $valueTipo){
-                    $sql="SELECT tipo, valor, fecha
-                    FROM variables
-                    WHERE imei = :imei and
-                    tipo = :tipo
-                    ORDER BY fecha DESC
-                    LIMIT 1";              
-                    $param= array(':imei'=>$this->id, ':tipo'=>$valueTipo["tipo"]);
-                    $valores = DATA::Ejecutar($sql,$param, false);
-                    if($valores){
-                        foreach ($valores as $keyValores => $valueValores){
-                            $dispositivo = new Device();
-                            $dispositivo->tipo = $valueValores['tipo'];
-                            $dispositivo->valor = $valueValores['valor'];
-                            array_push ($lista, $dispositivo);
-                        }
-                    }
-                }
-            }                
-            return $lista;
-        }     
-        catch(Exception $e) {
-            header('HTTP/1.0 400 Bad error');
-            die(json_encode(array(
-                'code' => $e->getCode() ,
-                'msg' => 'Error al cargar la lista'))
-            );
-        }
-    }
 
     function ReadAll(){
         try {
-            //$miVar = DATA::robot();
-            $sql='SELECT imei FROM device';
-            $dispositivos= DATA::Ejecutar($sql);
-            if($dispositivos){
-                $lista = [];
-                foreach ($dispositivos as $keyDevice => $valueDevice){
-                    $sql="SELECT de.nombre, var.fecha, var.latitud, var.longitud
-                    FROM device de
-                    INNER JOIN variables var ON de.imei = var.imei
-                    WHERE de.imei = :imei
-                    ORDER BY fecha DESC
-                    LIMIT 1;";              
-                    $param= array(':imei'=>$valueDevice["imei"]);
-                    $detalleDispositivo = DATA::Ejecutar($sql,$param, false);
-                    if($detalleDispositivo){
-                        foreach ($detalleDispositivo as $keyDetail => $valueDetail){
-                            $dispositivo = new Device();
-                            $dispositivo->id = $valueDevice['imei'];
-                            $dispositivo->nombre = $valueDetail['nombre'];
-                            $dispositivo->fecha = $valueDetail['fecha'];
-                            $dispositivo->latitud = $valueDetail['latitud'];
-                            $dispositivo->longitud = $valueDetail['longitud'];
-                            array_push ($lista, $dispositivo);
-                        }
-                    }
-                }                
-                return $lista;
-            }
+            $sql='SELECT usr.id, usr.nombre, usr.user, usr.company, usr.active
+            FROM roles;';
+            $data= DATA::Ejecutar($sql);
+               
+            return $data;
+            
         }     
         catch(Exception $e) {
             header('HTTP/1.0 400 Bad error');
@@ -194,9 +117,7 @@ class Device{
 
     function Create(){
         try {
-
-            $sql="INSERT INTO dispositivos (id, nombre, imei, numSIM) VALUES (UUID(), :nombre, :imei, :numSIM);"; 
-       
+            $sql="INSERT INTO dispositivos (id, nombre, imei, numSIM) VALUES (UUID(), :nombre, :imei, :numSIM);";       
             $param= array(':uuid'=>$this->id, ':idBodega'=>$_SESSION["userSession"]->idBodega, ':local'=>$this->local, ':terminal'=>$this->terminal, 
                     ':idCondicionVenta'=>$this->idCondicionVenta, ':idSituacionComprobante'=>$this->idSituacionComprobante, ':idEstadoComprobante'=>$this->idEstadoComprobante, 
                     ':idMedioPago'=>$this->idMedioPago, ':fechaEmision'=>$this->fechaEmision, ':totalVenta'=>$this->totalVenta, ':totalDescuentos'=>$this->totalDescuentos, 

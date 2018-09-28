@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
 </head>
 
-<body>
+<body class="main_container" style="display: none;">
     <nav class="navbar navbar-default custom-header">
         <div class="container-fluid">
             <div class="navbar-header"><a class="navbar-brand" href="#"><span style="margin-left:27px;font-family:'News Cycle', sans-serif;color:rgb(253,250,254);">XLABS Integration S.A.</span> <img class="img-responsive" src="assets/img/user.png" width="auto" height="auto" style="width:43px;margin:-26px;margin-right:-27px;margin-top:-32px;margin-left:-33px;margin-bottom:-31px;"> </a>
@@ -59,17 +59,15 @@
                 <p class="text-center">Portal Administrativo</p>
             </div>            
             <div class="row features">
-                <a href="map.html">
-                    <div class="col-md-4 col-sm-6 item"><i class="fa fa-heartbeat icon"></i>
-                        <h3 class="name">Salud de Dispositivos</h3>
-                        <p class="description">Visualiza la ubicación y adquisicón de datos</p>
-                    </div>
-                </a>
-                <div class="col-md-4 col-sm-6 item"><i class="glyphicon glyphicon-list-alt icon"></i>
+                <div style="cursor: pointer;" onclick="window.location='map.html';" class="col-md-4 col-sm-6 item"><i class="fa fa-heartbeat icon"></i>
+                    <h3 class="name">Salud de Dispositivos</h3>
+                    <p class="description">Visualiza la ubicación y adquisicón de datos</p>
+                </div>
+                <div style="cursor: pointer;" onclick="window.location='roles.html';" class="col-md-4 col-sm-6 item"><i class="glyphicon glyphicon-list-alt icon"></i>
                     <h3 class="name">Roles</h3>
                     <p class="description">Gestiona los ROles de Usuarios.</p>
                 </div>
-                <div class="col-md-4 col-sm-6 item"><i class="fa fa-group icon"></i>
+                <div style="cursor: pointer;" onclick="window.location='clientes.html';" class="col-md-4 col-sm-6 item"><i class="fa fa-group icon"></i>
                     <h3 class="name">Clientes</h3>
                     <p class="description">Gestiona de Clientes.</p>
                 </div>

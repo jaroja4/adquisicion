@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `xlabs` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `xlabs`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: xlabs
@@ -39,7 +37,7 @@ CREATE TABLE `dispositivos` (
 
 LOCK TABLES `dispositivos` WRITE;
 /*!40000 ALTER TABLE `dispositivos` DISABLE KEYS */;
-INSERT INTO `dispositivos` VALUES ('6d9729f6-be34-11e8-b101-c85b76da12f5','UNO','mi imei','MI SIM'),('af76a1ba-be2b-11e8-b101-c85b76da12f5','MEGA','mi imei','MI SIM');
+INSERT INTO `dispositivos` VALUES ('6d9729f6-be34-11e8-b101-c85b76da12f5','UNO','865067024423025','MI SIM'),('af76a1ba-be2b-11e8-b101-c85b76da12f5','MEGA','mi imei','MI SIM'),('ef4ea013-c04b-11e8-b101-c85b76da12f5','otro','ALGO','NUMMM');
 /*!40000 ALTER TABLE `dispositivos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-23 12:31:56
+-- Dump completed on 2018-09-24 17:31:38

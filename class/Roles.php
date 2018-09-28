@@ -1,52 +1,39 @@
 <?php
-date_default_timezone_set('America/Costa_Rica');
-
-// Classes
-require_once("Conexion.php");
-
 if(isset($_POST["action"])){
     $opt= $_POST["action"];
-    unset($_POST["action"]);
+    unset($_POST['action']);
+    // Classes
+    require_once("Conexion.php");
+    require_once('Evento.php');
+    //require_once("encdes.php");
     // Session
     if (!isset($_SESSION))
-        session_start();  
+        session_start();
     // Instance
-    $device= new Device();
+    $rol= new Rol();
     switch($opt){
         case "ReadAll":
-            echo json_encode($device->ReadAll());
+            echo json_encode($rol->ReadAll());
             break;
-        case "ReadbyID":
-            echo json_encode($device->ReadbyID());
+        case "Read":
+            echo json_encode($rol->Read());
             break;
         case "Create":
-            echo json_encode($device->Create());
+            $rol->Create();
             break;
         case "Update":
-            $device->Update();
-            break;
-        case "AddData":
-            $device->AddData();
+            $rol->Update();
             break;
         case "Delete":
-            echo json_encode($device->Delete());
-            break;
-        case "LoadStatus":
-            $a =json_encode($device->LoadStatus());
-            echo json_encode($device->LoadStatus());
+            echo json_encode($rol->Delete());
             break;   
-    }    
+    }
 }
 
-class Device{
+
+class Rol{
     public $id="";
-    public $valor="";
     public $nombre="";
-    public $imei= "";
-    public $numSIM="";
-    public $tipo="";
-    public $latitud="";
-    public $longitud="";
     //
     function __construct(){
         // identificador único
@@ -56,13 +43,7 @@ class Device{
         if(isset($_POST["obj"])){
             $obj= json_decode($_POST["obj"],true);
             $this->id= $obj["id"] ?? '';
-            $this->valor= $obj["valor"] ?? '';
             $this->nombre= $obj["nombre"] ?? '';
-            $this->imei= $obj["imei"] ?? '';
-            $this->numSIM= $obj["numSIM"] ?? '';
-            $this->tipo= $obj["tipo"] ?? '';
-            $this->latitud= $obj["latitud"] ?? '';
-            $this->longitud= $obj["longitud"] ?? '';
         }
     }
 
@@ -127,34 +108,12 @@ class Device{
 
     function ReadAll(){
         try {
-            //$miVar = DATA::robot();
-            $sql='SELECT imei FROM device';
-            $dispositivos= DATA::Ejecutar($sql);
-            if($dispositivos){
-                $lista = [];
-                foreach ($dispositivos as $keyDevice => $valueDevice){
-                    $sql="SELECT de.nombre, var.fecha, var.latitud, var.longitud
-                    FROM device de
-                    INNER JOIN variables var ON de.imei = var.imei
-                    WHERE de.imei = :imei
-                    ORDER BY fecha DESC
-                    LIMIT 1;";              
-                    $param= array(':imei'=>$valueDevice["imei"]);
-                    $detalleDispositivo = DATA::Ejecutar($sql,$param, false);
-                    if($detalleDispositivo){
-                        foreach ($detalleDispositivo as $keyDetail => $valueDetail){
-                            $dispositivo = new Device();
-                            $dispositivo->id = $valueDevice['imei'];
-                            $dispositivo->nombre = $valueDetail['nombre'];
-                            $dispositivo->fecha = $valueDetail['fecha'];
-                            $dispositivo->latitud = $valueDetail['latitud'];
-                            $dispositivo->longitud = $valueDetail['longitud'];
-                            array_push ($lista, $dispositivo);
-                        }
-                    }
-                }                
-                return $lista;
-            }
+            $sql='SELECT id, nombre
+            FROM roles;';
+            $data= DATA::Ejecutar($sql);
+               
+            return $data;
+            
         }     
         catch(Exception $e) {
             header('HTTP/1.0 400 Bad error');
@@ -194,9 +153,7 @@ class Device{
 
     function Create(){
         try {
-
-            $sql="INSERT INTO dispositivos (id, nombre, imei, numSIM) VALUES (UUID(), :nombre, :imei, :numSIM);"; 
-       
+            $sql="INSERT INTO dispositivos (id, nombre, imei, numSIM) VALUES (UUID(), :nombre, :imei, :numSIM);";       
             $param= array(':uuid'=>$this->id, ':idBodega'=>$_SESSION["userSession"]->idBodega, ':local'=>$this->local, ':terminal'=>$this->terminal, 
                     ':idCondicionVenta'=>$this->idCondicionVenta, ':idSituacionComprobante'=>$this->idSituacionComprobante, ':idEstadoComprobante'=>$this->idEstadoComprobante, 
                     ':idMedioPago'=>$this->idMedioPago, ':fechaEmision'=>$this->fechaEmision, ':totalVenta'=>$this->totalVenta, ':totalDescuentos'=>$this->totalDescuentos, 
